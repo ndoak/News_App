@@ -4,6 +4,7 @@ angular.module('newsApp', [])
 function($scope){
   $scope.test = "Hello World";
 }]);
+
 $scope.posts = [
   {title:'post 1', upvotes: 5},
   {title:'post 2', upvotes: 2},
@@ -11,3 +12,7 @@ $scope.posts = [
   {title:'post 4', upvotes: 9},
   {title:'post 5', upvotes: 4}
 ];
+
+$scope.addPost = function(){
+  $scope.posts.push({title: 'A new post!', upvotes: 0});
+};
