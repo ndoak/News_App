@@ -8,15 +8,25 @@ function($stateProvider, $urlRouterProvider) {
     templateUrl: '/home.html',
     controller: 'MainCtrl'
   });
-  $urlRouterProvider.otherwise('home'):
+  $urlRouterProvider.otherwise('home');
+                .state('posts', {
+                  url: '/posts/{id}',
+                  templateUrl: '/posts.html',
+                  controller: 'PostsCtrl'
+                });
 }])
-
 .factory('posts', [function(){
   var o = {
     posts: []
   };
   return o;
 }])
+.controller('PostsCtrl', [
+  '$scope',
+  '$stateParams',
+  'posts',
+  function($scope, $stateParams, posts {
+  }]);
 .controller('MainCtrl', [
   '$scope',
   'posts',
@@ -38,7 +48,11 @@ $scope.addPost = function(){
   $scope.posts.push({
     title: $scope.title,
     link: $scope.link,
-    upvotes: 0
+    upvotes: 0,
+    comments: [
+      {author: 'Joe', body: 'Cool post!', upvotes:0}
+      {author: 'Bob', body: 'Great Idea', upvotes:0}
+    ]
   });
   $scope.title = '';
   $scope.link = '';

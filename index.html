@@ -9,10 +9,11 @@
     <script src="app.js"></script>
     <style> .glyphicon-thumbs-up { cursor:pointer } </style>
   </head>
+  <script type="text/ng-template" id="/home.html">
   <body ng-app="newsApp" ng-controller="MainCtrl">
     <div class = "row">
     <div class ="col-md-6 col-md-offset-3">
-
+       <ui-view></ui-view>
       <div class="page-header">
         <h1>News App</h1>
       </div>
