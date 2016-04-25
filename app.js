@@ -1,20 +1,23 @@
-angular.module('newsApp',['ui.router'])
+angular.module('newsApp',['ui.router']);
 .config([
 '$stateProvider',
 '$urlRouterProvider',
 function($stateProvider, $urlRouterProvider) {
-  $stateProvider.state('home', {
-    url: '/home',
-    templateUrl: '/home.html',
-    controller: 'MainCtrl'
-  });
+  $stateProvider
+     .state('home', {
+        url: '/home',
+        templateUrl: '/home.html',
+        controller: 'MainCtrl'
+      });
+      .state('posts', {
+        url: '/posts/{id}',
+        templateUrl: '/posts.html',
+        controller: 'PostsCtrl'
+      });
+
   $urlRouterProvider.otherwise('home');
-                .state('posts', {
-                  url: '/posts/{id}',
-                  templateUrl: '/posts.html',
-                  controller: 'PostsCtrl'
-                });
 }])
+
 .factory('posts', [function(){
   var o = {
     posts: []
@@ -25,23 +28,25 @@ function($stateProvider, $urlRouterProvider) {
   '$scope',
   '$stateParams',
   'posts',
-  function($scope, $stateParams, posts {
-  }]);
+  $scope.addComment = function(){
+    if($scope.body === '') { return; }
+    $scope.post.comments.push({
+      body: $scope.body,
+      author: 'user',
+      upvotes: 0
+    });
+    $scope.body = '';
+  };
+  function($scope, $stateParams, posts){
+    $scope.post = posts.posts[$stateParams.id];
+  }
+]);
 .controller('MainCtrl', [
   '$scope',
   'posts',
-
 function($scope,posts){
   $scope.test = "Hello World";
   $scope.posts = posts.posts;
-
-// [
-//   {title:'post 1', upvotes: 5},
-//   {title:'post 2', upvotes: 2},
-//   {title:'post 3', upvotes: 15},
-//   {title:'post 4', upvotes: 9},
-//   {title:'post 5', upvotes: 4}
-// ];
 
 $scope.addPost = function(){
   if(!$scope.title || $scope.title === '') { return; }
